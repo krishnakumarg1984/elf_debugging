@@ -3,12 +3,14 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "1. gcc build and debug active file",
+      "name": "1. gcc rebuild & debug current file",
       "type": "cppdbg",
       "request": "launch",
       "program": "${fileDirname}/${fileBasenameNoExtension}.x",
+      "relativePathBase": "${fileDirname}",
       "args": [],
       "stopAtEntry": false,
+      // "cwd": "${fileDirname}",
       "cwd": "${workspaceFolder}",
       "environment": [],
       "externalConsole": false,
@@ -20,8 +22,34 @@
           "ignoreFailures": true
         }
       ],
-      "preLaunchTask": "4. Compile file to executable (C23 debug build) with gcc",
+      // "preLaunchTask": "4. Compile file to executable (C23 debug build) with gcc",
       "miDebuggerPath": "gdb"
+    },
+    {
+      "name": "2. Launch/debug current file/executable with GDB (cppdbg)",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${fileDirname}/${fileBasenameNoExtension}.x",
+      "relativePathBase": "${fileDirname}",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${fileDirname}",
+      "reverseDebugging": true,
+      // "consoleMode": "evaluate",
+      "consoleMode": "split",
+      "commandCompletions": true,
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing --silent",
+          "ignoreFailures": true
+        }
+      ]
+      // "initCommands": ["settings set target.process.thread.step-avoid-regexp ''"],
+      // "preRunCommands": ["breakpoint set --name main"],
+      // "showDisassembly": "never"
+      // "skipFiles": ["<node_internals>/**"],
+      // "valuesFormatting": "parseText",
     },
     {
       "args": [],
