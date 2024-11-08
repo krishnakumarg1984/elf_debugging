@@ -1,0 +1,95 @@
+---
+
+CompileFlags:
+  # Tweak the parse settings
+  Add:
+    [
+      "-xc",
+      "-Idoctest",
+      "-rdynamic",
+      "-Wall",
+      "-Wcast-align",
+      "-Wcast-qual",
+      "-Wconversion",
+      "-Wctor-dtor-privacy",
+      "-Wdeprecated-copy-dtor",
+      # "-Wdisabled-optimization",
+      "-Wdouble-promotion",
+      "-Wduplicated-branches", # not in clang++
+      "-Wduplicated-cond", # not in clang++
+      "-Weffc++",
+      "-Wextra", # (activates -Wunknown-pragmas)
+      "-Wextra-semi",
+      "-Wfatal-errors",
+      "-Wfloat-equal",
+      "-Wformat=2",
+      "-Wformat-signedness", # not in clang++
+      "-Wformat-truncation=2", # not in clang++
+      "-Winvalid-pch",
+      "-Wlogical-op", # not in clang++
+      "-Wmisleading-indentation",
+      "-Wmissing-declarations",
+      "-Wmissing-format-attribute",
+      "-Wmissing-include-dirs",
+      "-Wmissing-noreturn",
+      "-Wnoexcept",
+      "-Wno-init-list-lifetime", # not in clang++
+      "-Wnon-virtual-dtor",
+      "-Wnull-dereference",
+      "-Wold-style-cast",
+      "-Woverloaded-virtual",
+      "-Wpedantic",
+      "-Wredundant-decls",
+      "-Wrestrict", # not in clang++
+      "-Wshadow",
+      "-Wsign-conversion",
+      "-Wsign-promo",
+      "-Wstack-protector",
+      "-Wstrict-aliasing",
+      "-Wstrict-overflow=2",
+      "-Wsuggest-override",
+      "-Wswitch-default",
+      "-Wswitch-enum",
+      "-Wundef",
+      "-Wunused",
+      "-Wunused-macros",
+      "-Wuseless-cast", # not in clang++
+      # "-lstdc++",
+      "-lm",
+      "-lpthread",
+      "-march=native",
+      "-ldl",
+      "-std=c23",
+      "-pedantic-errors",
+      "-g",
+      "-ggdb",
+      "-O0",
+      "-DDEBUG",
+      "-fasynchronous-unwind-tables",
+      "-fdata-sections",
+      "-fdiagnostics-show-template-tree",
+      "-fexceptions",
+      "-fno-elide-type",
+      "-ffunction-sections",
+      "-fno-common",
+      "-fno-omit-frame-pointer",
+      "-fno-sanitize-recover=all",
+      "-fno-sanitize=alignment",
+      "-fno-sanitize=null",
+      "-fsanitize=address",
+      "-fsanitize=integer",
+      "-fsanitize=signed-integer-overflow",
+      "-fsanitize=float-cast-overflow",
+      "-fsanitize=float-divide-by-zero",
+      "-fsanitize=undefined",
+      "-fsanitize-trap",
+      "-fstack-clash-protection",
+      "-fstack-protector-all",
+      "-fstack-protector-strong",
+      "-fstack-usage",
+      "-fstrict-aliasing"
+    ] # treat all files as C++, enable more warnings
+Diagnostics:
+  UnusedIncludes: Strict
+
+# vim: ft=yaml

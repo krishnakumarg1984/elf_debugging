@@ -1,0 +1,3 @@
+command alias start script lldb.debugger.HandleCommand('breakpoint set -n main -N entry'); lldb.debugger.HandleCommand('run')
+command alias watch watchpoint set variable
+command alias rwatch watchpoint set variable -w read

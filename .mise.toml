@@ -1,0 +1,36 @@
+[env]
+CC = "gcc"
+# CPLUS_INCLUDE_PATH = "include:plog/include"
+# LD_LIBRARY_PATH = "{{exec(command='spack location -i llvm')}}/lib/x86_64-unknown-linux-gnu"
+# https://stackoverflow.com/a/75203537
+COMMON_COMPILE_LINK_FLAGS = "-U_FORTIFY_SOURCE -lm -fcf-protection=full -fdiagnostics-color -fexceptions -fno-delete-null-pointer-checks -fPIE -pie -fstack-clash-protection -fstack-protector -fstrict-aliasing -fstrict-flex-arrays=3 -fvisibility=hidden -mshstk -pipe -rdynamic -Wl,-z,defs -Wl,-z,now -Wl,-z,relro -Wl,--build-id=sha1 -Wl,--no-undefined -Wl,--discard-all -Wl,-O1 -Wl,-z,nodlopen -Wl,-z,noexecstack -Wl,-pie -Wl,--as-needed -Wl,--no-copy-dt-needed-entries"
+# -lpthread
+# -fdiagnostics-show-template-tree -fno-elide-type (not valid for C)
+GCC_GE12_RELEASE_COMPILE_LINK_FLAGS = "-D_FORTIFY_SOURCE=3"
+CLANG_COMPILE_LINK_FLAGS = "-D_LIBCPP_ENABLE_HARDENED_MODE -fsafe-buffer-usage-suggestions" # assume latest clang
+
+COMMON_WARNING_FLAGS = "-pedantic-errors -Wall -Walloca -Wbad-function-cast -Wcast-align -Wcast-qual -Wconversion -Wdate-time -Wdouble-promotion -Wextra -Wfloat-equal -Wformat=2 -Wformat-signedness -Wframe-larger-than=6000 -Wmissing-format-attribute -Wmissing-include-dirs -Wmissing-noreturn -Wnull-dereference -Wpacked -Wpadded -Wpedantic -Wshadow -Wstrict-aliasing -Wstrict-prototypes -Wswitch-default -Wswitch-enum -Wundef -Wunused-macros -Wvla -Wwrite-strings"
+# -Wc++-compat (can't keep all code compatible with C++)
+# -Wctad-maybe-unsupported  -Wdeprecated-copy-dtor -Weffc++ -Wextra-semi -Wnon-virtual-dtor -Wold-style-cast -Woverloaded-virtual -Wsign-promo -Wsuggest-override -Wzero-as-null-pointer-constant (not valid for C)
+# -Wmissing-variable-declarations (too noisy)
+GCC_WARNING_FLAGS = "-Warray-bounds=2 -Wattribute-alias=2 -Wattributes -Wcast-align=strict -Wduplicated-branches -Wduplicated-cond -Werror=return-type -Wfatal-errors -Wfloat-conversion -Wformat-overflow=2 -Wformat-signedness -Wformat-truncation=2 -Wimplicit-fallthrough=5 -Winvalid-pch -Wlogical-op -Wnested-externs -Wpointer-arith -Wredundant-decls -Wshift-overflow=2 -Wsign-conversion -Wstack-protector -Wstrict-overflow=4 -Wstringop-overflow=4 -Wsuggest-attribute=format -Wsuggest-attribute=noreturn -Wsuggest-final-methods -Wsuggest-final-types -Wsync-nand -Wtraditional-conversion -Wtrampolines -Wuseless-cast" # assume gcc >= 9
+# -Wctor-dtor-privacy -Wnoexcept -Wstrict-null-sentinel (not valid in C)
+GCC_GE13_WARNING_COMPILE_LINK_FLAGS = "-Wstrict-flex-arrays -Winvalid-utf8 -fstrict-flex-arrays=3"
+GCC_GE12_WARNING_COMPILE_LINK_FLAGS = "-Wopenacc-parallelism -ftrivial-auto-var-init=zero -Wtrivial-auto-var-init -Wuse-after-free=3"
+GCC_GE11_WARNING_COMPILE_LINK_FLAGS = "-Wenum-conversion -Wmismatched-dealloc"
+# -Winvalid-imported-macros -Wstrict-null-sentinel (not valid in C)
+GCC_GE10_WARNING_COMPILE_LINK_FLAGS = "-Wanalyzer-too-complex -Warith-conversion"
+# -Wcomma-subscript  -Wmismatched-tags -Wvolatile -Wredundant-tags  (not valid for C)
+
+CLANG_WARNING_FLAGS = "-Wabstract-vbase-init -Wanon-enum-enum-conversion -Warc-repeated-use-of-weak -Warray-bounds-pointer-arithmetic -Wassign-enum -Watomic-implicit-seq-cst -Watomic-properties -Wbinary-literal -Wbind-to-temporary-copy -Wc99-extensions -Wcalled-once-parameter -Wcast-function-type -Wclass-varargs -Wcomma -Wcomments -Wcompound-token-split -Wconditional-uninitialized -Wconsumed -Wcovered-switch-default -Wcstring-format-directive -Wcuda-compat -Wdeprecated -Wdeprecated-implementations -Wdirect-ivar-access -Wdisabled-macro-expansion -Wdocumentation -Wdocumentation-pedantic -Wdtor-name -Wduplicate-decl-specifier -Wduplicate-enum -Wduplicate-method-arg -Wduplicate-method-match -Wdynamic-exception-spec -Wexit-time-destructors -Wexpansion-to-defined -Wexplicit-ownership-type -Wextra-semi-stmt -Wformat-non-iso -Wformat-pedantic -Wformat-type-confusion -Wfour-char-constants -Wgcc-compat -Wglobal-constructors -Wgnu -Wheader-hygiene -Widiomatic-parentheses -Wimplicit-fallthrough -Wimplicit-retain-self -Wincompatible-function-pointer-types-strict -Wincomplete-module -Winconsistent-missing-destructor-override -Winvalid-or-nonexistent-directory -Wlocal-type-template-args -Wloop-analysis -Wmax-tokens -Wmethod-signatures -Wmicrosoft -Rmodule-build -Rmodule-import -Rmodule-include-translation -Rmodule-lock -Wnarrowing -Wnewline-eof -Wno-c++98-c++11-compat-binary-literal -Wnon-gcc -Wnonportable-system-include-path -Wnullable-to-nonnull-conversion -Wover-aligned -Woverriding-method-mismatch -Wpartial-availability -Wpedantic-core-features -Wpoison-system-directories -Wpragma-pack -Wpragmas -Wprofile-instr-missing -Wquoted-include-in-framework-header -Wreceiver-forward-class -Wredundant-parens -Rremark-backend-plugin -Wreserved-id-macro -Wreserved-identifier -Wreserved-user-defined-literal -Rround-trip-cc1-args -Wshadow-all -Wshift-sign-overflow -Wsigned-enum-bitfield -Wspirv-compat -Wstatic-in-inline -Wstrict-potentially-direct-selector -Wsuggest-destructor-override -Wsuper-class-method-mismatch -Wtautological-constant-in-range-compare -Wthread-safety -Wthread-safety-beta -Wthread-safety-negative -Wthread-safety-verbose -Wunaligned-access -Wundef-prefix -Wundefined-func-template -Wundefined-reinterpret-cast -Wunnamed-type-template-args -Wunreachable-code-aggressive -Wunsafe-buffer-usage -Wunsupported-dll-base-class-template -Wunused-exception-parameter -Wunused-local-typedefs -Wunused-member-function -Wunused-template -Wused-but-marked-unused -Wvariadic-macros -Wvector-conversions -Wweak-vtables -Wno-unsafe-buffer-usage" # assume latest clang
+
+COMMON_DEBUG_MODE_FLAGS = "-O0 -DDEBUG -D_DEBUG -fasynchronous-unwind-tables -fno-omit-frame-pointer -fno-sanitize-recover=all -fsanitize=bool -fsanitize=float-cast-overflow -fsanitize=float-divide-by-zero -fsanitize=signed-integer-overflow -fsanitize=undefined -fsanitize-trap=all -fstack-protector-all -fstack-protector-strong -g3 -ggdb3 -gdwarf-5 -gsplit-dwarf"
+GCC_DEBUG_MODE_FLAGS = "-fvar-tracking-assignments -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_GLIBCXX_ASSERTIONS"
+CLANG_DEBUG_MODE_FLAGS = "-Rsanitize-address"
+# -fsanitize=address
+# -fsanitize=leak (does not work under ptrace)
+# -fanalyzer-transitivity -fhardened -Wstack-usage=
+# for C: -fno-common, -Wc++-compat, -Wtraditional-conversion, -Wstrict-prototypes, -Wdeclaration-after-statement, -Wmissing-prototypes, -Wmissing-variable-declarations, -Wwrite-strings, -Wbad-function-cast, -Wnested-externs
+# https://best.openssf.org/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C++.html
+# https://developers.redhat.com/blog/2021/05/05/memory-error-checking-in-c-and-c-comparing-sanitizers-and-valgrind
+# -fno-strict-aliasing -fno-strict-overflow, -fstrict-aliasing, -fsanitize=safe-stack,-fsanitize=cfi, -mcpu=native, -Rsearch-path-usage, -Rpass-missed,-Rpass, -fstrict-flex-arrays=3,-Rpass-analysis,-Waggregate-return,-Wopenmp

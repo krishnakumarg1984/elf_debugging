@@ -1,0 +1,123 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "1. C-script (gcc) run C source (C23). See 'https://github.com/ryanmjacobs/c'",
+      "type": "shell",
+      "command": "c",
+      "args": [
+        {
+          "value": "'${file} -std=c23 ${env:COMMON_COMPILE_LINK_FLAGS} ${env:GCC_WARNING_FLAGS} ${env:GCC_GE13_WARNING_COMPILE_LINK_FLAGS} ${env:GCC_GE12_WARNING_COMPILE_LINK_FLAGS} ${env:GCC_GE11_WARNING_COMPILE_LINK_FLAGS} ${env:GCC_GE10_WARNING_COMPILE_LINK_FLAGS} ${env:GCC_RELEASE_COMPILE_LINK_FLAGS} ${env:GCC_GE12_RELEASE_COMPILE_LINK_FLAGS} ${env:COMMON_WARNING_FLAGS} -DDBG_MACRO_NO_WARNING -Wno-missing-include-dirs'",
+          "quoting": ""
+        }
+      ],
+      "options": {
+        "cwd": "${fileDirname}"
+      },
+      "problemMatcher": "$gcc",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "Run compiled executable",
+      "type": "shell",
+      "command": "${fileDirname}/${fileBasenameNoExtension}.x",
+      "windows": {
+        "command": "${fileDirname}/${fileBasenameNoExtension}.exe"
+      },
+      "options": {
+        "cwd": "${fileDirname}"
+      }
+    },
+    {
+      "label": "Clean executable",
+      "type": "shell",
+      "command": "rm ${fileDirname}/${fileBasenameNoExtension}.x 2>/dev/null",
+      "options": {
+        "cwd": "${fileDirname}"
+      }
+    },
+    {
+      "label": "2. Compile file to executable (C23 debug build) with clang",
+      "type": "shell",
+      "command": "clang",
+      "args": [
+        {
+          "value": "-std=c23 -stdlib=libc++ ${env:COMMON_COMPILE_LINK_FLAGS} ${env:CLANG_COMPILE_LINK_FLAGS} ${env:COMMON_WARNING_FLAGS} ${env:CLANG_WARNING_FLAGS} ${env:COMMON_DEBUG_MODE_FLAGS} ${env:CLANG_DEBUG_MODE_FLAGS} -DDBG_MACRO_NO_WARNING -DDEBUG ${file} -o ${fileDirname}/${fileBasenameNoExtension}.x",
+          // -DDBG_MACRO_DISABLE
+          "quoting": ""
+        }
+      ],
+      "options": {
+        "cwd": "${fileDirname}"
+      },
+      "problemMatcher": "$gcc",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "3. Compile file to executable (C23 release build) with clang",
+      "type": "shell",
+      "command": "clang",
+      "args": [
+        {
+          "value": "-std=c23 -stdlib=libc++ -O2 -flto ${env:COMMON_COMPILE_LINK_FLAGS} ${env:CLANG_COMPILE_LINK_FLAGS} ${env:COMMON_WARNING_FLAGS} ${env:CLANG_WARNING_FLAGS} -DDBG_MACRO_NO_WARNING -DNDEBUG ${file} -o ${fileDirname}/${fileBasenameNoExtension}.x",
+          // -DDBG_MACRO_DISABLE
+          "quoting": ""
+        }
+      ],
+      "options": {
+        "cwd": "${fileDirname}"
+      },
+      "problemMatcher": "$gcc",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "4. Compile file to executable (C23 debug build) with gcc",
+      "type": "shell",
+      "command": "gcc",
+      "args": [
+        {
+          "value": "-std=c23 ${env:COMMON_COMPILE_LINK_FLAGS} ${env:COMMON_WARNING_FLAGS} ${env:GCC_WARNING_FLAGS} ${env:GCC_GE13_WARNING_COMPILE_LINK_FLAGS} ${env:GCC_GE12_WARNING_COMPILE_LINK_FLAGS} ${env:GCC_GE11_WARNING_COMPILE_LINK_FLAGS} ${env:GCC_GE10_WARNING_COMPILE_LINK_FLAGS} ${env:COMMON_DEBUG_MODE_FLAGS} ${env:GCC_DEBUG_MODE_FLAGS} ${file} -o ${fileDirname}/${fileBasenameNoExtension}.x -DDBG_MACRO_NO_WARNING -DDEBUG",
+          "quoting": ""
+        }
+      ],
+      "options": {
+        "cwd": "${fileDirname}"
+      },
+      "problemMatcher": "$gcc",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "5. Compile file to executable (C23 release build) with gcc",
+      "type": "shell",
+      "command": "gcc",
+      "args": [
+        {
+          "value": "-std=c23 -O2 -flto ${env:COMMON_COMPILE_LINK_FLAGS} ${env:GCC_RELEASE_COMPILE_LINK_FLAGS} ${env:GCC_GE12_RELEASE_COMPILE_LINK_FLAGS} ${env:COMMON_WARNING_FLAGS} ${env:GCC_WARNING_FLAGS} ${env:GCC_GE13_WARNING_COMPILE_LINK_FLAGS} ${env:GCC_GE12_WARNING_COMPILE_LINK_FLAGS} ${env:GCC_GE11_WARNING_COMPILE_LINK_FLAGS} ${env:GCC_GE10_WARNING_COMPILE_LINK_FLAGS} ${file} -o ${fileDirname}/${fileBasenameNoExtension}.x -DDBG_MACRO_NO_WARNING -DNDEBUG",
+          "quoting": ""
+        }
+      ],
+      "options": {
+        "cwd": "${fileDirname}"
+      },
+      "problemMatcher": "$gcc",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}
